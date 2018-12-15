@@ -1,0 +1,51 @@
+#calc{
+	width: 22%;
+	margin: 0 auto;
+	margin-top: 7% !important;
+	font-family: monospace;
+	font-size: 25px;
+}
+
+.btn{
+	border-radius: 0;
+	box-shadow: none;
+	background: none;
+	border: 1px solid lightgrey;
+	color: black;
+	font-size: 18px;
+}
+
+button:focus, button:active{
+	outline: 0 !important;
+}
+
+
+.btn:hover{
+	background: lightgrey;
+	border: 1px solid lightgrey;
+}
+
+input, input:active, input:hover{
+	border: 0 !important;
+	border-radius: 0;
+	box-shadow: none !important;
+	background: transparent !important;
+	cursor: default;
+	text-align: right;
+}
+
+#txtResult{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#user-input-result{
+	border: 1px solid lightgrey;
+}
+
+.card{
+	max-width: 300px !important;
+	min-width: 300px !important;
+}
+
+

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="src/css/style.css">
+</head>
+<body>
+
+	<div id="calc">
+		<div class="card">
+			<div class="card-header">
+				Calculator
+			</div>
+			<div class="card-body">
+				<div class="row mb-3">
+					<div class="col-md-12">
+						<div id="user-input-result">
+							<input type="text" class="form-control" id="txtHistory" name="" readonly="readonly">
+							<input type="text" class="form-control" id="txtResult" name="" readonly="readonly">
+						</div>
+					</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnPercentage">%</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnSquareRoot">√</button>
+					</div>
+					
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnClearAll">AC</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnClear">C</button>
+					</div>
+				</div>
+				<div class="row mb-1">
+					
+					<!-- <div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnClearEntry">CE</button>
+					</div> -->
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnSquare">x&sup2</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnOpeningParentheses">(</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnClosingParentheses">)</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnDivision">÷</button>
+					</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnSeven">7</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnEight">8</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnNine">9</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnMultiply">×</button>
+					</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnFour">4</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnFive">5</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnSix">6</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnSubstract">-</button>
+					</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnOne">1</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnTwo">2</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnThree">3</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnAdd">+</button>
+					</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnPlusMinus">±</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnZero">0</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnPeriod">.</button>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<button type="button" class="btn btn-secondary btn-block" id="btnEqual">=</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="src/js/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="src/js/calcWithComma.js"></script> -->
+	<script type="text/javascript" src="src/js/calc.js"></script>
+
+</body>
+</html>
