@@ -8,12 +8,6 @@ $('#btnClearAll').click(function(){
 	$('#txtResult').val(0);
 });
 
-$('#btnClearEntry').click(function(){
-	var userInput = GetUserInput();
-	var result = userInput.substring(0, userInput.length - GetCurrentInput().length);
-	$('#txtHistory').val(result);
-});
-
 $('#btnClear').click(function(){
 	var userInput = GetUserInput();
 	var result = userInput.substring(0, userInput.length - 1);
@@ -73,6 +67,14 @@ $('#btnPeriod').click(function(){
 		if(GetNumberOfPeriod() < 1){
 			$('#txtHistory').val(GetUserInput() + '.');
 		}
+	}else{
+		var previousInput = GetPriviousInput();
+		if(previousInput){
+			$('#txtHistory').val(previousInput + '0.');
+
+		}else{
+			$('#txtHistory').val('0.');
+		}
 	}
 });
 
@@ -81,8 +83,9 @@ $('#btnAdd').click(function(){
 	if(!userInput){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
+	if(userInput && userInput != 0 && GetCurrentInput()){
 		$('#txtHistory').val((userInput + ' + '));
+
 	}
 });
 
@@ -91,7 +94,7 @@ $('#btnSubstract').click(function(){
 	if(!userInput){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
+	if(userInput && userInput!= 0 && GetCurrentInput()){
 		$('#txtHistory').val((userInput + ' - '));
 	}
 });
@@ -100,7 +103,7 @@ $('#btnMultiply').click(function(){
 	if(!userInput){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
+	if(userInput && userInput!= 0 && GetCurrentInput()){
 		$('#txtHistory').val((userInput + ' × '));
 	}
 });
@@ -110,7 +113,7 @@ $('#btnDivision').click(function(){
 	if(!userInput && userInput!= 0){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
+	if(userInput && userInput!= 0 && GetCurrentInput()){
 		$('#txtHistory').val((userInput + ' ÷ '));
 	}
 });
@@ -247,16 +250,6 @@ function RemoveUnSupportedCharacters(x){
 	return x;
 }
 
-function IsValidOperator(){
-	var userInput = GetUserInput();
-	if(userInput.length > 2){
-		var operator = userInput[userInput.length-2];
-		if( operator !='+' && operator !='-' && operator != '÷' && operator != '×' && operator != '(' && operator != ')' )
-			return true;
-		return false;
-	}
-	return true;
-}
 
 function IsValidParenthesis(){
 	var userInput = GetUserInput();
