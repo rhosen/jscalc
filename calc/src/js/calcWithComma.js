@@ -8,12 +8,6 @@ $('#btnClearAll').click(function(){
 	$('#txtResult').val(0);
 });
 
-$('#btnClearEntry').click(function(){
-	var userInput = GetUserInput();
-	var result = userInput.substring(0, userInput.length - GetCurrentInput().length);
-	$('#txtHistory').val(result);
-});
-
 $('#btnClear').click(function(){
 	var userInput = GetUserInput();
 	var result = userInput.substring(0, userInput.length - 1);
@@ -28,7 +22,9 @@ $('#btnZero').click(function(){
 	if(GetCurrentInput()){
 		AddDigit('0');
 	}
-	CalculateResult();
+	if(GetUserInput()){
+		CalculateResult();
+	}
 });
 
 $('#btnOne').click(function(){
@@ -69,9 +65,17 @@ $('#btnNine').click(function(){
 });
 
 $('#btnPeriod').click(function(){
-	if(GetCurrentInput()){
+	if(GetCurrentInput() && GetCurrentInput() != " "){
 		if(GetNumberOfPeriod() < 1){
-			$('#txtHistory').val(GetUserInput() + '.');
+			$('#txtHistory').val(AddSpaceBetweenNumbers(GetUserInput() + '.'));
+		}
+	}else{
+		var previousInput = GetPriviousInput();
+		if(previousInput){
+			$('#txtHistory').val(AddSpaceBetweenNumbers(previousInput + '0.'));
+
+		}else{
+			$('#txtHistory').val(AddSpaceBetweenNumbers('0.'));
 		}
 	}
 });
@@ -81,8 +85,9 @@ $('#btnAdd').click(function(){
 	if(!userInput){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
-		$('#txtHistory').val((userInput + ' + '));
+	if(userInput && userInput != 0 && GetCurrentInput() != " "){
+		$('#txtHistory').val((AddSpaceBetweenNumbers(userInput + '+')));
+
 	}
 });
 
@@ -91,8 +96,8 @@ $('#btnSubstract').click(function(){
 	if(!userInput){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
-		$('#txtHistory').val((userInput + ' - '));
+	if(userInput && userInput!= 0 && GetCurrentInput() != " "){
+		$('#txtHistory').val((AddSpaceBetweenNumbers(userInput + '-')));
 	}
 });
 $('#btnMultiply').click(function(){
@@ -100,8 +105,8 @@ $('#btnMultiply').click(function(){
 	if(!userInput){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
-		$('#txtHistory').val((userInput + ' × '));
+	if(userInput && userInput!= 0 && GetCurrentInput() != " "){
+		$('#txtHistory').val((AddSpaceBetweenNumbers(userInput + '×')));
 	}
 });
 
@@ -110,10 +115,11 @@ $('#btnDivision').click(function(){
 	if(!userInput && userInput!= 0){
 		userInput = $('#txtResult').val();
 	}
-	if(userInput && userInput!= 0 && IsValidOperator()){
-		$('#txtHistory').val((userInput + ' ÷ '));
+	if(userInput && userInput!= 0 && GetCurrentInput() != " "){
+		$('#txtHistory').val((AddSpaceBetweenNumbers(userInput + '÷')));
 	}
 });
+
 
 $('#btnOpeningParentheses').click(function(){
 	var userInput = GetUserInput();
@@ -144,15 +150,15 @@ $('#btnClosingParentheses').click(function(){
 $('#btnPercentage').click(function(){
 	var previousInput = GetPriviousInput();
 	var amountToApplyPercentage = RemoveComma(previousInput);
-	amountToApplyPercentage = amountToApplyPercentage.substring(0, amountToApplyPercentage.length - 3);
+	amountToApplyPercentage = amountToApplyPercentage.slice(0, -1);
 	try{
 		amountToApplyPercentage = eval(RemoveUnSupportedCharacters(amountToApplyPercentage));
-		var result = eval( amountToApplyPercentage * GetCurrentInput() / 100); 
+		var currentInput = parseFloat(GetCurrentInput());
+		var result = eval( amountToApplyPercentage * currentInput / 100); 
 		if(result){
-			$('#txtHistory').val((previousInput + result));
+			$('#txtHistory').val((AddSpaceBetweenNumbers(previousInput + result)));
+			CalculateResult();
 		}
-		CalculateResult();
-
 	}catch(e){
 
 	}
@@ -200,30 +206,45 @@ function AddDigit(digit){
 		var newInput = GetCurrentInput() + digit;
 	}
 	if(previousInput){
-		$('#txtHistory').val(previousInput +  newInput);
+		$('#txtHistory').val(AddSpaceBetweenNumbers(previousInput + newInput));
 	}
 	else{
 		$('#txtHistory').val(newInput);
 	}
 }
 
+
 function GetUserInput(){
 	return $('#txtHistory').val();
 }
 
 function GetPriviousInput(){
-	var userInput = $('#txtHistory').val();
-	var lastSpace = userInput.lastIndexOf(' ');
-	var previousInput = userInput.substring(0, lastSpace + 1);
-	return previousInput;
+	var userInput = GetUserInput();
+	return userInput.slice(0, GetMaxOperatorIndex(userInput) + 1);
 }
 
 function GetCurrentInput(){
-	var userInput = $('#txtHistory').val();
-	var lastSpace = userInput.lastIndexOf(' ');
-	var currentInput = userInput.slice(lastSpace + 1);
-	return currentInput;
+	var userInput = GetUserInput();
+	return userInput.slice(GetMaxOperatorIndex(userInput) + 1);
 }
+
+function GetMaxOperatorIndex(userInput){
+	var index = [ userInput.lastIndexOf('+'), userInput.lastIndexOf('-'), 
+	userInput.lastIndexOf('×'), userInput.lastIndexOf('÷') ]
+	var maxIndex = index.reduce((x, y) => x > y ? x : y);
+	return maxIndex;
+
+}
+
+function AddSpaceBetweenNumbers(x){
+	x = x.replace(/\s/g, '');
+	x = x.replace(/\+/g, ' + ');
+	x = x.replace(/\-/g, ' - ');
+	x = x.replace(/\×/g, ' × ');
+	x = x.replace(/\÷/g, ' ÷ ');
+	return x;
+}
+
 
 function GetNumberOfPeriod(){
 	return GetCurrentInput().split('.').length - 1;
@@ -247,16 +268,6 @@ function RemoveUnSupportedCharacters(x){
 	return x;
 }
 
-function IsValidOperator(){
-	var userInput = GetUserInput();
-	if(userInput.length > 2){
-		var operator = userInput[userInput.length-2];
-		if( operator !='+' && operator !='-' && operator != '÷' && operator != '×' && operator != '(' && operator != ')' )
-			return true;
-		return false;
-	}
-	return true;
-}
 
 function IsValidParenthesis(){
 	var userInput = GetUserInput();
@@ -330,13 +341,16 @@ $(document).keydown(function(e) {
 		$('#btnEqual').click();
 	}
 	else if(e.which == 8){
+		e.preventDefault();
 		$('#btnClear').click();
 	}
 });
 
 
 function GetComma(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	x = x.toString().split(".");
+	x[0] = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	return x.join(".")
 }
 
 function RemoveComma(x) {
