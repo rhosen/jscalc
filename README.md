@@ -1,5 +1,5 @@
 ## About
-A web calculator, written in HTML, CSS, Javascript, Bootstrap, and jQuery.
+A web calculator, written in HTML, CSS, JavaScript, Bootstrap, and jQuery.
 Use calcWithComma.js if you want the numbers to be comma formatted.
 
 # Demo
